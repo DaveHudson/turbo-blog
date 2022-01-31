@@ -1092,7 +1092,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 @media (prefers-color-scheme: dark) {
   .dark\:bg-dark {
     --tw-bg-opacity: 1;
-    background-color: rgb(42 42 42 / var(--tw-bg-opacity));
+    background-color: rgb(48 49 49 / var(--tw-bg-opacity));
   }
 
   .dark\:fill-\[\#FAFAFA\] {
