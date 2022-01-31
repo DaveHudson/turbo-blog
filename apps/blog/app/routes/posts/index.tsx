@@ -1,7 +1,9 @@
+import { Link } from "remix";
+
 const posts = [
   {
     title: "Boost your conversion rate",
-    href: "#",
+    href: "boost-conversion-rate",
     category: { name: "Article", href: "#", color: "bg-indigo-100 text-indigo-800" },
     description:
       "Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus arcu.",
@@ -17,7 +19,7 @@ const posts = [
   },
   {
     title: "How to use search engine optimization to drive sales",
-    href: "#",
+    href: "seo",
     category: { name: "Video", href: "#", color: "bg-pink-100 text-pink-800" },
     description:
       "Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus arcu.",
@@ -33,7 +35,7 @@ const posts = [
   },
   {
     title: "Improve your customer experience",
-    href: "#",
+    href: "cx",
     category: { name: "Case Study", href: "#", color: "bg-green-100 text-green-800" },
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ab iure iusto fugiat commodi sequi.",
     date: "Feb 12, 2020",
@@ -67,7 +69,7 @@ export default function Posts() {
           {posts.map((post) => (
             <div key={post.title}>
               <div>
-                <a href={post.category.href} className="inline-block">
+                <Link to={`${post.category.href}`} className="inline-block">
                   <span
                     className={classNames(
                       post.category.color,
@@ -76,22 +78,22 @@ export default function Posts() {
                   >
                     {post.category.name}
                   </span>
-                </a>
+                </Link>
               </div>
-              <a href={post.href} className="block mt-4">
+              <Link to={`${post.href}`} className="block mt-4">
                 <p className="text-xl font-semibold text-gray-900">{post.title}</p>
                 <p className="mt-3 text-base text-gray-500">{post.description}</p>
-              </a>
+              </Link>
               <div className="mt-6 flex items-center">
                 <div className="flex-shrink-0">
-                  <a href={post.author.href}>
+                  <Link to={post.author.href}>
                     <span className="sr-only">{post.author.name}</span>
                     <img className="h-10 w-10 rounded-full" src={post.author.imageUrl} alt="" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="ml-3">
                   <p className="text-sm font-medium text-gray-900">
-                    <a href={post.author.href}>{post.author.name}</a>
+                    <Link to={post.author.href}>{post.author.name}</Link>
                   </p>
                   <div className="flex space-x-1 text-sm text-gray-500">
                     <time dateTime={post.datetime}>{post.date}</time>

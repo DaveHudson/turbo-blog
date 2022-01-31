@@ -2,7 +2,7 @@ import { Link, Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useC
 import { Fragment, SVGProps } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import type { MetaFunction } from "remix";
 import styles from "./tailwind.css";
 
@@ -154,14 +154,6 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
                   </Disclosure.Button>
                 </div>
                 <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
-                  <button
-                    type="button"
-                    className="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-4">
                     <div>
@@ -243,13 +235,6 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
                     <div className="text-base font-medium text-gray-800">{user.name}</div>
                     <div className="text-sm font-medium text-gray-500">{user.email}</div>
                   </div>
-                  <button
-                    type="button"
-                    className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   {userNavigation.map((item) => (
