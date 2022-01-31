@@ -1,17 +1,17 @@
 import { Link, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
 import invariant from "tiny-invariant";
+import parseFrontMatter from "front-matter";
+import { marked } from "marked";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  invariant(params.postid, "expected params.postid");
-
   const post = {
     title: "Boost your conversion rate",
     href: "boost-conversion-rate",
     category: { name: "Article", href: "#", color: "bg-indigo-100 text-indigo-800" },
     description:
       "Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus arcu.",
-    body: "This is the body post, it will be markdown",
+    body: "",
     date: "Mar 16, 2020",
     datetime: "2020-03-16",
     author: {
@@ -32,6 +32,7 @@ function classNames(...classes: string[]) {
 
 export default function PostSlug() {
   const post = useLoaderData();
+
   return (
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-16 lg:pb-14 lg:px-8">
       <div className="relative max-w-lg mx-auto  divide-gray-200 md:max-w-3xl lg:max-w-5xl">
@@ -52,9 +53,9 @@ export default function PostSlug() {
                   stroke="currentColor"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
                   />
                 </svg>
@@ -136,8 +137,15 @@ export default function PostSlug() {
           </div>
         </div>
 
-        <div className="mt-4 grid gap-16 pt-4 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12 text-light dark:text-dark">
-          {post.body}
+        <div className="prose">
+          {/* <div
+            className="mt-4 grid gap-16 pt-4 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12 text-light dark:text-dark prose"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdown) }}
+          /> */}
+
+          <div className="mt-4 grid gap-16 pt-4 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12 text-light dark:text-dark prose">
+            Hello
+          </div>
         </div>
       </div>
     </div>
