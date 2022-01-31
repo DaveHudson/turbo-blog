@@ -59,8 +59,10 @@ export default function Posts() {
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-16 lg:pb-14 lg:px-8">
       <div className="relative max-w-lg mx-auto divide-y-2 divide-gray-200 lg:max-w-7xl">
         <div>
-          <h2 className="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl">Recent publications</h2>
-          <p className="mt-3 text-xl text-gray-500 sm:mt-4">
+          <h2 className="text-3xl tracking-tight font-extrabold text-light dark:text-dark sm:text-4xl">
+            Recent publications
+          </h2>
+          <p className="mt-3 text-xl text-light-accent dark:text-dark-accent sm:mt-4">
             Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus
             arcu.
           </p>
@@ -81,8 +83,8 @@ export default function Posts() {
                 </Link>
               </div>
               <Link to={`${post.href}`} className="block mt-4">
-                <p className="text-xl font-semibold text-gray-900">{post.title}</p>
-                <p className="mt-3 text-base text-gray-500">{post.description}</p>
+                <p className="text-xl font-semibold text-light dark:text-dark">{post.title}</p>
+                <p className="mt-3 text-base text-light-accent dark:text-dark-accent">{post.description}</p>
               </Link>
               <div className="mt-6 flex items-center">
                 <div className="flex-shrink-0">
@@ -92,10 +94,10 @@ export default function Posts() {
                   </Link>
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-light dark:text-dark-accent">
                     <Link to={post.author.href}>{post.author.name}</Link>
                   </p>
-                  <div className="flex space-x-1 text-sm text-gray-500">
+                  <div className="flex space-x-1 text-sm text-light-accent dark:text-dark-accent">
                     <time dateTime={post.datetime}>{post.date}</time>
                     <span aria-hidden="true">&middot;</span>
                     <span>{post.readingTime} read</span>
