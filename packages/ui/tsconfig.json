@@ -3,7 +3,8 @@
     "lib": ["dom", "ES2015"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "importHelpers": true
+    "importHelpers": true,
+    "jsx": "react-jsx"
   },
   "include": ["src"],
   "exclude": ["dist", "build", "node_modules"]
