@@ -216,7 +216,9 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
                     as="a"
                     href={item.href}
                     className={classNames(
-                      item.current ? "bg-gray-100 text-gray-900" : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
+                      item.current
+                        ? "bg-gray-100 text-light dark:text-dark"
+                        : "text-light dark:text-dark hover:bg-gray-50 hover:text-gray-900",
                       "block rounded-md py-2 px-3 text-base font-medium"
                     )}
                     aria-current={item.current ? "page" : undefined}
@@ -231,8 +233,8 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
                     <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">{user.name}</div>
-                    <div className="text-sm font-medium text-gray-500">{user.email}</div>
+                    <div className="text-base font-medium text-light dark:text-dark">{user.name}</div>
+                    <div className="text-sm font-medium text-light-accent dark:text-dark-accent">{user.email}</div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
@@ -241,9 +243,9 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
                       key={item.name}
                       as="a"
                       href={item.href}
-                      className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                      className="block rounded-md py-2 px-3 text-base font-medium text-light dark:text-dark hover:bg-gray-50 hover:text-gray-900"
                     >
-                      {item.name}
+                      {item.name}!!
                     </Disclosure.Button>
                   ))}
                 </div>
