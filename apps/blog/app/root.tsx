@@ -203,7 +203,7 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
               <nav className="hidden lg:py-3 lg:flex lg:space-x-8 lg:justify-center" aria-label="Global">
                 {navigation.map((item) => (
                   <Link
-                    to={item.href}
+                    to={`${item.href}`}
                     key={item.name}
                     className={classNames(
                       item.current ? "bg-gray-100 text-gray-900" : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
