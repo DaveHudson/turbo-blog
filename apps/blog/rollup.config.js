@@ -1,6 +1,6 @@
 import commonJs from "@rollup/plugin-commonjs";
 import jsonPlugin from "@rollup/plugin-json";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
+import resolve from "@rollup/plugin-node-resolve";
 
 export default {
   input: "api/api.js",
@@ -10,8 +10,11 @@ export default {
     format: "cjs"
   },
   plugins: [
-    nodeResolve({ preferBuiltins: true, moduleDirectories: ["@remix-run/vercel"] }),
     commonJs(),
+    resolve({
+      preferBuiltins: true,
+      moduleDirectories: ["../../node_modules/@remix-run/vercel"]   
+    }),    
     jsonPlugin()
   ]
 };
