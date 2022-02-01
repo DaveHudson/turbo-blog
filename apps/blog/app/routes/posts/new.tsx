@@ -1,4 +1,4 @@
-import { Link, redirect, useActionData, json, Form, useTransition } from "remix";
+import { redirect, useActionData, json, Form, useTransition } from "remix";
 import type { ActionFunction } from "remix";
 import { getUser } from "~/utils/session.server";
 import { createPost } from "~/utils/db/post.server";

@@ -34,3 +34,6 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# Remix
+apps/blog/api/index.js
