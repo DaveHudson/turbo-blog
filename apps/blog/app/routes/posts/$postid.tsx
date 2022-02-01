@@ -3,7 +3,6 @@ import type { ActionFunction, LoaderFunction } from "remix";
 import { getUser } from "~/utils/session.server";
 import { deletePost, getPost } from "~/utils/db/post.server";
 import invariant from "tiny-invariant";
-import DOMPurify from "dompurify";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.postid, "expected params.postid");
