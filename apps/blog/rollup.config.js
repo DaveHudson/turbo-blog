@@ -3,7 +3,7 @@ import jsonPlugin from "@rollup/plugin-json";
 import resolve, { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default {
-  input: "api/index.ts",
+  input: "api/index.js",
   output: {
     exports: "default",
     file: "api/index.js",
