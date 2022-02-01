@@ -1,17 +1,20 @@
-import {nodeResolve} from "@rollup/plugin-node-resolve";
-import path from "path";
+import commonJs from "@rollup/plugin-commonjs";
+import jsonPlugin from "@rollup/plugin-json";
+import resolve, { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default {
-  input: 'api/api.js',
+  input: "api/index.ts",
   output: {
-    file: 'api/index.js',
+    exports: "default",
+    file: "api/index.js",
+    format: "cjs"
   },
   plugins: [
-    nodeResolve({
-      preferBuiltins: true,
-      rootDir: path.join(process.cwd(), '../..'),
-      moduleDirectories: ['node_modules'],
-      exportConditions: ['node']
-    })
-  ],
+    nodeResolve({ preferBuiltins: true}),
+    commonJs(),
+    resolve({
+      moduleDirectories: ["node_modules"]
+    }),
+    jsonPlugin()
+  ]
 };
