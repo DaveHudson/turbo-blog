@@ -61,6 +61,7 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
     { name: "Contact", href: "/contact", current: false },
   ];
   const userNavigation = [
+    { name: "Login", href: "/auth/login" },
     { name: "Your Profile", href: "#" },
     { name: "Settings", href: "#" },
     { name: "Sign out", href: "#" },

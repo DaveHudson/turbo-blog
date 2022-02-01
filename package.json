@@ -6,6 +6,9 @@
     "apps/*",
     "packages/*"
   ],
+  "prisma": {
+    "seed": "node --require esbuild-register prisma/seed.ts"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --no-cache --parallel --continue",
@@ -16,8 +19,10 @@
     "postinstall": "patch-package"
   },
   "devDependencies": {
+    "esbuild-register": "^3.3.2",
     "patch-package": "^6.4.7",
     "prettier": "^2.5.1",
+    "prisma": "^3.8.1",
     "turbo": "latest"
   },
   "engines": {

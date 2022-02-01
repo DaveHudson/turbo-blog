@@ -1,37 +1,48 @@
-import { Link, useLoaderData } from "remix";
-import type { LoaderFunction } from "remix";
+import { useLoaderData, Link, redirect, useTransition, Form } from "remix";
+import type { ActionFunction, LoaderFunction } from "remix";
+import { getUser } from "~/utils/session.server";
+import { deletePost, getPost } from "~/utils/db/post.server";
 import invariant from "tiny-invariant";
-import parseFrontMatter from "front-matter";
-import { marked } from "marked";
+import DOMPurify from "dompurify";
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const post = {
-    title: "Boost your conversion rate",
-    href: "boost-conversion-rate",
-    category: { name: "Article", href: "#", color: "bg-indigo-100 text-indigo-800" },
-    description:
-      "Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus arcu.",
-    body: "",
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    author: {
-      name: "Paul York",
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    readingTime: "6 min",
-  };
+export const loader: LoaderFunction = async ({ request, params }) => {
+  invariant(params.postid, "expected params.postid");
 
-  return post;
+  const user = await getUser(request);
+
+  const postid = params.postid;
+  const post = await getPost(Number(postid));
+
+  const data = { post, user };
+  return data;
 };
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+export const action: ActionFunction = async ({ request, params }) => {
+  const form = await request.formData();
 
-export default function PostSlug() {
-  const post = useLoaderData();
+  // Check for delete methos
+  if (form.get("_method") === "delete") {
+    // Get user from cookie
+    const user = await getUser(request);
+
+    // Get post from db
+    const { postid } = params;
+    const post = await getPost(Number(postid));
+
+    if (!post) throw new Error("Post not found");
+
+    // delete ONLY if post created by logged in user
+    if (user && post.userId === user.id) {
+      await deletePost(Number(params.postid));
+    }
+
+    return redirect("/posts");
+  }
+};
+
+export default function Post() {
+  const { post, user } = useLoaderData();
+  const transition = useTransition();
 
   return (
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-16 lg:pb-14 lg:px-8">
@@ -97,14 +108,14 @@ export default function PostSlug() {
 
           <div className="mt-6 flex items-center">
             <div className="flex-shrink-0">
-              <Link to={post.author.href}>
-                <span className="sr-only">{post.author.name}</span>
-                <img className="h-10 w-10 rounded-full" src={post.author.imageUrl} alt="" />
+              <Link to={user.id}>
+                <span className="sr-only">{user.name}</span>
+                <img className="h-10 w-10 rounded-full" src={user.profileUrl} alt="" />
               </Link>
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-light dark:text-dark">
-                <Link to={post.author.href}>{post.author.name}</Link>
+                <Link to={user.id}>{user.name}</Link>
               </p>
               <div className="flex space-x-1 text-sm text-light-accent dark:text-dark-accent">
                 <time dateTime={post.datetime}>{post.date}</time>
@@ -137,16 +148,23 @@ export default function PostSlug() {
           </div>
         </div>
 
-        <div className="prose">
-          {/* <div
-            className="mt-4 grid gap-16 pt-4 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12 text-light dark:text-dark prose"
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(markdown) }}
-          /> */}
-
-          <div className="mt-4 grid gap-16 pt-4 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12 text-light dark:text-dark prose">
-            Hello
-          </div>
+        <div className="text-lg prose mx-auto pt-8">
+          <div className="prose prose-pink dark:prose-invert" dangerouslySetInnerHTML={{ __html: post.body }} />
         </div>
+
+        {user?.id === post.userId && (
+          <div className="pt-3">
+            <Form method="post">
+              <input type="hidden" name="_method" value="delete" />
+              <button
+                type="submit"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              >
+                {transition.state !== "idle" ? "Deleting.." : "Delete"}
+              </button>
+            </Form>
+          </div>
+        )}
       </div>
     </div>
   );
