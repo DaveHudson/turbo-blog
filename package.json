@@ -22,7 +22,6 @@
     "esbuild-register": "^3.3.2",
     "patch-package": "^6.4.7",
     "prettier": "^2.5.1",
-    "prisma": "^3.8.1",
     "turbo": "latest"
   },
   "engines": {
