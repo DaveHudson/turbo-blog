@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 
 export const loader: LoaderFunction = async () => {
   const dbPosts = getPosts();
-  console.log(dbPosts);
+
   return dbPosts;
 };
 
@@ -18,7 +18,7 @@ function classNames(...classes: string[]) {
 
 export default function Posts() {
   const posts = useLoaderData<PostWithUser[]>();
-  console.log(posts);
+
   return (
     <div className="pt-16 pb-20 px-4 sm:px-6 lg:pt-16 lg:pb-14 lg:px-8">
       <div className="relative max-w-lg mx-auto divide-y-2 divide-gray-200 lg:max-w-7xl">
