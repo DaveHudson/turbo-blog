@@ -62,6 +62,7 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
   ];
   const userNavigation = [
     { name: "Login", href: "/auth/login" },
+    { name: "New Post", href: "/posts/new" },
     { name: "Your Profile", href: "#" },
     { name: "Settings", href: "#" },
     { name: "Sign out", href: "#" },
