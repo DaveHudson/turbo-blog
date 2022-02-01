@@ -3,16 +3,15 @@ import type { ActionFunction, LoaderFunction } from "remix";
 import { getUser } from "~/utils/session.server";
 import { deletePost, getPost } from "~/utils/db/post.server";
 import invariant from "tiny-invariant";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.postid, "expected params.postid");
 
-  const user = await getUser(request);
-
   const postid = params.postid;
   const post = await getPost(Number(postid));
 
-  const data = { post, user };
+  const data = { post };
   return data;
 };
 
@@ -40,7 +39,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function Post() {
-  const { post, user } = useLoaderData();
+  const { post } = useLoaderData();
   const transition = useTransition();
 
   return (
@@ -74,27 +73,13 @@ export default function Post() {
           </div>
 
           <div className="flex justify-center space-x-3 pt-3">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
-              Remix
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-              React
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-              Databases
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-              Tailwind
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-indigo-100 text-indigo-800">
-              Mono Repos
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">
-              Design Systems
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-pink-100 text-pink-800">
-              Testing
-            </span>
+            {post.tags.map(
+              (tag: { color: any; name: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined }) => (
+                <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${tag.color}`}>
+                  {tag.name}
+                </span>
+              )
+            )}
           </div>
 
           <div className="flex justify-center space-x-3 pt-4">
@@ -107,14 +92,14 @@ export default function Post() {
 
           <div className="mt-6 flex items-center">
             <div className="flex-shrink-0">
-              <Link to={user.id}>
-                <span className="sr-only">{user.name}</span>
-                <img className="h-10 w-10 rounded-full" src={user.profileUrl} alt="" />
+              <Link to={post.user.id}>
+                <span className="sr-only">{post.user.name}</span>
+                <img className="h-10 w-10 rounded-full" src={post.user.profileUrl} alt="" />
               </Link>
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-light dark:text-dark">
-                <Link to={user.id}>{user.name}</Link>
+                <Link to={post.user.id}>{post.user.name}</Link>
               </p>
               <div className="flex space-x-1 text-sm text-light-accent dark:text-dark-accent">
                 <time dateTime={post.datetime}>{post.date}</time>
@@ -151,7 +136,7 @@ export default function Post() {
           <div className="prose prose-pink dark:prose-invert" dangerouslySetInnerHTML={{ __html: post.body }} />
         </div>
 
-        {user?.id === post.userId && (
+        {/* {user?.id === post.userId && (
           <div className="pt-3">
             <Form method="post">
               <input type="hidden" name="_method" value="delete" />
@@ -163,7 +148,7 @@ export default function Post() {
               </button>
             </Form>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

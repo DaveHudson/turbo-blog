@@ -2,7 +2,7 @@ import { Link, redirect, useActionData, json, Form, useTransition } from "remix"
 import type { ActionFunction } from "remix";
 import { getUser } from "~/utils/session.server";
 import { createPost } from "~/utils/db/post.server";
-import { Category, Post } from "@prisma/client";
+import { Post, Prisma } from "@prisma/client";
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
 import invariant from "tiny-invariant";
 import { useState } from "react";
@@ -40,10 +40,9 @@ export const action: ActionFunction = async ({ request }) => {
 
   const post = {
     title: form.get("title"),
-    slug: form.get("title"),
     description: "the best 90's tunes",
     body: form.get("body"),
-    category: Category.ARTICLE,
+    tags: [] as Prisma.JsonArray,
     imageUrl: "http",
     userId: user.id,
   } as Post;
