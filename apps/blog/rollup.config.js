@@ -6,5 +6,5 @@ export default {
     file: 'api/index.js',
     format: 'cjs'
   },
-  plugins: [nodeResolve()]
+  plugins: [nodeResolve({moduleDirectories: ['node_modules']})],
 };
