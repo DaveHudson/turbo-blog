@@ -13,7 +13,7 @@ export default {
     commonJs(),
     resolve({
       preferBuiltins: true,
-      moduleDirectories: ["../../node_modules/@remix-run/vercel"]   
+      moduleDirectories: ["node_modules"]   
     }),    
     jsonPlugin()
   ]
